@@ -1,64 +1,70 @@
 <template>
   <div>
-<h3> All Route  </h3>
+    <h3>All Routes</h3>
 
-<!-- Task 1 -->
+    <!-- Task 1 -->
     <div class="container">
-          <table>
-          <tr>
-            <th>From</th>
-            <th>To</th>
-            <th>Cost</th>
-            <th>Time</th>
-            <th>Date</th>
-          </tr>
-          <tr class="item" v-for="route in routes" :key="route.id">
-            <td>{{ route.fromcity }} </td>
-            <td>{{ route.tocity}} </td>
-            <!-- <td> {{ route.cost}}</td> -->
-
-            <td class='red' v-if="route.cost > 12"> {{ route.cost}}</td>
-            <td class='blue' v-else>{{ route.cost}}</td>
-
-            <td>{{ route.departuretime }} </td>
-            <td>{{ route.departuredate }} </td> 
-          </tr>
-          </table>
+      <table>
+        <tr>
+          <th>From</th>
+          <th>To</th>
+          <th>Cost</th>
+          <th>Time</th>
+          <th>Date</th>
+        </tr>
+        <tr v-for="route in routes" :key="route.id">
+          <td>{{ route.fromcity }}</td>
+          <td>{{ route.tocity }}</td>
+          <td>{{ route.cost }}</td>
+          <td>{{ route.departuretime }}</td>
+          <td>{{ route.departuredate }}</td>
+        </tr>
+      </table>
     </div>
-    <div class ='counters'  >
-            <p> We have  {{ routes.length }} trips today! </p>
+
+    <div class="counters">
+      <p>We have {{ routes.length }} trips today!</p>
     </div>
   </div>
 </template>
 
-
 <script>
 export default {
-  name: "AllRoutes",
   data() {
     return {
-      toTallinn: 0,
-      routes: [],
-
+      routes: [], // Array to store fetched routes
     };
   },
-  methods: {
-    fetchRouts() {
-      fetch(`http://localhost:3000/api/routes/`)
-        .then((response) => response.json())
-        .then((data) => (this.routes = data))
-        .catch((err) => console.log(err.message));
-   },
-  },
   mounted() {
-    this.fetchRouts();
-    console.log("mounted");
-  } 
-};
+    // Fetch data when the component is mounted
+    this.fetchRoutes();
+  },
+  methods: {
+    async fetchRoutes() {
+      try {
+        // Make a GET request to fetch routes data using the fetch API
+        const response = await fetch('http://localhost:3000/api/routes');
+
+        // Check if the request was successful (status code 200)
+        if (response.ok) {
+          // Parse the JSON response
+          const routes = await response.json();
+
+          // Update the routes data with the fetched data
+          this.routes = routes;
+        } else {
+          console.error('Error fetching routes:', response.statusText);
+        }
+      } catch (error) {
+        console.error('Error fetching routes:', error);
+      }
+    },
+  }}
 </script>
 
+
 <style scoped>
-h1 {
+h3 {
   font-size: 20px;
 }
 th {
@@ -67,24 +73,24 @@ th {
 td {
   background: rgb(186, 228, 204);
 }
-th, td {
+th,
+td {
   font-size: 15px;
   margin-bottom: 5px;
   padding: 8px 10px;
 }
-.red{
-   background: rgb(225, 33, 19); 
+.red {
+  background: rgb(225, 33, 19);
 }
-.blue{
-   background: rgb(19, 67, 163); 
+.blue {
+  background: rgb(19, 67, 163);
 }
-.counters{
-    background: rgb(157, 160, 165); 
-    padding: 10px 20px;
-    display: block;
-    width: 40%;
-    margin: auto;
-    font-size: 18px;
+.counters {
+  background: rgb(157, 160, 165);
+  padding: 10px 20px;
+  display: block;
+  width: 40%;
+  margin: auto;
+  font-size: 18px;
 }
-
 </style>
