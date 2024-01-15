@@ -50,19 +50,24 @@ app.post('/api/routes', async(req, res) => {
     }
 });
 
-app.put('/api/routes/:id', async(req, res) => {
+app.put('/api/routes/:id', async (req, res) => {
     try {
         const { id } = req.params;
-        const route = req.body;
+        const { departuretime, departuredate } = req.body;
         console.log("An update request has arrived");
+
         const updateroute = await pool.query(
-            "UPDATE routes SET (id, fromcity, tocity, cost, departuretime, departuredate) = ($1, $2, $3, $4, $5, $6) WHERE id = $1 RETURNING*", [id, route.fromcity, route.tocity, route.cost, route.departuretime, route.departuredate]
+            "UPDATE routes SET departuretime = $1, departuredate = $2 WHERE id = $3 RETURNING *",
+            [departuretime, departuredate, id]
         );
-        res.json(updateroute);
+
+        res.json(updateroute.rows[0]);
     } catch (err) {
         console.error(err.message);
+        res.status(500).send('Internal Server Error');
     }
 });
+
 
 app.delete('/api/routes/:id', async(req, res) => {
     try {
