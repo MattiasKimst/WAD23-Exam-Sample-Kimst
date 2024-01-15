@@ -86,14 +86,5 @@ th, td {
     margin: auto;
     font-size: 18px;
 }
-.container {
-  background: #d5d7d8;
-  box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.2);
-  margin-bottom: 30px;
-  padding: 10px 20px;
-  margin: auto;
-  width: 40%;
-  display: flex;
-  justify-content: center;
-}
+
 </style>

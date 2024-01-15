@@ -28,7 +28,7 @@
             <td><input name="tocity" type="text" id="tocityAdd" placeholder="To" required v-model="ARoute.tocity"></td>
             <td><input name="cost" type="number" id="costAdd" placeholder="Cost" required v-model="ARoute.cost"></td>
             <td><input name="time" type="text" id="timeAdd" placeholder="Departure time" required v-model="ARoute.departuretime"></td>
-            <td><input name="date" type="text" id="dateAdd"   required v-model="ARoute.departuredate"></td>
+            <td><input name="date" type="text" id="dateAdd"  placeholder="Departure date" required v-model="ARoute.departuredate"></td>
     </div>
     <button class="add"  @click="addRoute(ARoute)"> Add  </button>
   </div>

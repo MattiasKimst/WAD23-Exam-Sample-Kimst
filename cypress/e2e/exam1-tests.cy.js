@@ -2,8 +2,8 @@
 
 it('Test 1', () => {
     cy.visit('http://localhost:8080/routemanagement')
-    cy.get('h2').contains('Routes Management Pannel')
-    cy.get('button').should('contain', 'Add Route')
+    cy.get('h1').contains('Routes Management Pannel')
+    cy.get('button').should('contain', 'Add')
     cy.get('#dateAdd').should('have.attr', 'placeholder')
 })
 
