@@ -15,16 +15,15 @@
         <tr v-for="route in routes" :key="route.id">
           <td>{{ route.fromcity }}</td>
           <td>{{ route.tocity }}</td>
-          <td>{{ route.cost }}</td>
+          <td :class="{ 'red': route.cost > 12, 'blue': route.cost <= 12 }">{{ route.cost }}</td>
           <td>{{ route.departuretime }}</td>
           <td>{{ route.departuredate }}</td>
         </tr>
+
       </table>
     </div>
 
-    <div class="counters">
-      <p>We have {{ routes.length }} trips today!</p>
-    </div>
+
   </div>
 </template>
 
@@ -83,6 +82,13 @@ th {
   background: rgb(100, 151, 122); /* Darker green for header row */
   color: white;
 
+}
+.red {
+  background: rgb(225, 33, 19);
+}
+
+.blue {
+  background: rgb(19, 67, 163);
 }
 
 tr{
