@@ -67,18 +67,30 @@ export default {
 h3 {
   font-size: 20px;
 }
-th {
-  background: rgb(100, 151, 122);
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
 }
-td {
-  background: rgb(186, 228, 204);
-}
-th,
-td {
-  font-size: 15px;
-  margin-bottom: 5px;
+
+th, td {
   padding: 8px 10px;
+  text-align: left;
+  border: 2px solid lightgrey ;
 }
+
+th {
+  background: rgb(100, 151, 122); /* Darker green for header row */
+  color: white;
+
+}
+
+tr{
+  background: rgb(186, 228, 204); /* Lighter green for even rows */
+}
+
+
+
 .red {
   background: rgb(225, 33, 19);
 }
