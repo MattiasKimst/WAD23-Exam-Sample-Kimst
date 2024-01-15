@@ -22,7 +22,9 @@
 
       </table>
     </div>
-
+    <div class="counters">
+      <p>We have {{ routes.length }} trips today!</p>
+    </div>
 
   </div>
 </template>
