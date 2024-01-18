@@ -14,6 +14,7 @@ const execute = async(createTblQuery, insertDataQuery) => {
         await pool.query(insertDataQuery);
         return true;
     } catch (error) {
+
         console.error(error.stack);
         return false;
     }

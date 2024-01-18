@@ -7,16 +7,60 @@ it('Test 1', () => {
     cy.get('#dateAdd').should('have.attr', 'placeholder')
 })
 
-/* it('Test 2', () => {
-    cy.visit('http://localhost:8080/routemanagement')
-    //to be add by you
-    cy.get('#fromcityAdd').type('Rome')
-    cy.get('#tocityAdd').type('Florence')
-    cy.get('#costAdd').type(24)
-    cy.get('#timeAdd').type('06:00:00')
-    cy.get('#dateAdd').type('2022-03-24')
-    cy.get('.add').click()
-}) */
+// cypress/integration/routemanagement.spec.js
+
+
+it('Test2', () => {
+    const newRoute = {
+        fromcity: 'CityA',
+        tocity: 'CityB',
+        cost: '20',
+        departuretime: '10:00 AM',
+        departuredate: '2022-12-31',
+    };
+
+    cy.visit('http://localhost:8080/routemanagement'); // Update the route to the actual route path
+
+    // Type the new route information into the input fields
+    cy.get('#fromcityAdd').type(newRoute.fromcity);
+    cy.get('#tocityAdd').type(newRoute.tocity);
+    cy.get('#costAdd').type(newRoute.cost);
+    cy.get('#timeAdd').type(newRoute.departuretime);
+    cy.get('#dateAdd').type(newRoute.departuredate);
+
+    // Click the "Add" button
+    cy.get('.add').click();
+
+    // Confirm that the new route is added to the table
+    cy.contains('td', newRoute.fromcity);
+    cy.contains('td', newRoute.tocity);
+    cy.contains('td', newRoute.cost);
+    cy.contains('td', newRoute.departuretime);
+    cy.contains('td', newRoute.departuredate);
+});
+
+// Test 3
+it('makes a POST request to add a new route', () => {
+    const newRoute = {
+        fromcity: 'CityA',
+        tocity: 'CityB',
+        cost: '20',
+        departuretime: '10:00 AM',
+        departuredate: '2022-12-31',
+    };
+
+    cy.request({
+        method: 'POST',
+        url: 'http://localhost:3000/api/routes',
+        body: newRoute,
+    }).then((response) => {
+        expect(response.status).to.equal(200); // Assuming a successful response code
+        //expect(response.body).to.have.property('id'); // Assuming the response has an 'id' property
+        // Add more assertions if needed based on your server's response
+    });
+});
+
+
 
 /* API */
 /* it("Test 3 - API - Add route request", function() {
